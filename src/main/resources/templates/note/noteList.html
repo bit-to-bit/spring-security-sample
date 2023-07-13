@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>My Notes</title>
+    <link th:href="@{/styles/note/noteList.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="head"><h1 class="total" th:text="'TOTAL NOTES: ' + ${noteList.size()}"></h1>
+    <div class="divMenuButton">
+        <form action="#" th:action="@{/note/generate}" method="post">
+            <input class="yellowButton" type="submit" value="GENERATE"/>
+        </form>
+    </div>
+    <div class="divMenuButton">
+        <form action="#" th:action="@{/note/new}" method="get">
+            <input class="greenButton" type="submit" value="NEW"/>
+        </form>
+    </div>
+    <div class="divMenuButton">
+        <form action="#" th:action="@{/note/clean}" method="post">
+            <input class="redButton" type="submit" value="DELETE ALL"/>
+        </form>
+    </div>
+</div>
+
+<div>
+<div th:each="note: ${noteList}">
+    <div class="divNote">
+        <ul class="note">
+            <p><li class="noteTitle" th:text="${note.title}"></li><p>
+            <li class="noteContent" th:text="${note.content}"></li>
+        </ul>
+    </div>
+    <div class="divButton">
+        <form action="#" th:action="@{/note/delete}" th:object="${dtoNote}" method="post">
+            <input type="hidden" th:value="${note.id}" id="id" name="id"/>
+            <input class="redButton" type="submit" value="DELETE"/>
+        </form>
+    </div>
+    <div class="divButton">
+        <form action="/note/edit?query=blah" method="get">
+            <input type="hidden" name="id" th:value="${note.id}"/>
+            <input class="greenButton" type="submit" value="EDIT"/>
+        </form>
+    </div>
+</div>
+</div>
+</body>
+</html>

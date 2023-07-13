@@ -1,0 +1,3 @@
+defaults
+user = user
+password = jdbcDefault
